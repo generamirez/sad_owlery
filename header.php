@@ -49,7 +49,7 @@
     <a href='#' class='element'>Expenses</a>
     <a href='#' class='element'>Reports</a>
     <a href='#' class='element'>Options</a>
-    <a href='#' class='element'>Logout</a>
+    <a href='logout.php' class='element'>Logout</a>
     ";
   }
   else
