@@ -10,7 +10,4 @@ $dbcon=mysqli_connect("$host", "$username", "$password", "$db_name")or die("cann
 date_default_timezone_set('Asia/Hong_Kong');
 
 
-
-
-
 ?>

@@ -1,6 +1,7 @@
 
 <?php require 'connect.php'?>
 <?php require_once 'header.php'?>
+<?php require 'login_check.php' ?>
 <title>Sessions</title>
 <div id="main">
     <div>

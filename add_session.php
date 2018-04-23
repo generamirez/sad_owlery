@@ -1,5 +1,5 @@
 <?php require 'connect.php'?>
-
+<?php require 'login_check.php' ?>
 <?php require 'functions.php'?>
 <?php require 'header.php'?>
 

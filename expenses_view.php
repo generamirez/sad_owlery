@@ -2,6 +2,7 @@
 require 'functions.php';
 require_once 'connect.php';
 require 'header.php';
+require 'login_check.php';
 
 
 

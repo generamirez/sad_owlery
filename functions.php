@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['login_btn'])){
-
+    $_SESSION['logged_in']=false;
     // username and password sent from form
     $myusername=$_POST['username'];
     $mypassword=$_POST['password'];
@@ -19,6 +19,7 @@ if (isset($_POST['login_btn'])){
     if($row['username']==$myusername && $row['password']==$mypassword){
         $_SESSION['user'] = $row['username'];
         $_SESSION['level'] = $row['level'];
+        $_SESSION['logged_in']=true;
         if($row['level']=="admin"){
             header("location:sessions_view.php");
         }

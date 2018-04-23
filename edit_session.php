@@ -1,6 +1,7 @@
 
 <?php
 require 'functions.php';
+require 'login_check.php';
 require_once 'connect.php';
 require 'header.php';
 $id = $_GET['id'];
