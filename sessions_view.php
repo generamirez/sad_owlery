@@ -1,6 +1,7 @@
 
 <?php require 'connect.php'?>
 <?php require_once 'header.php'?>
+<title>Sessions</title>
 <div id="main">
     <div>
     <div class="container row">
@@ -108,8 +109,9 @@ if($row['session_status']==1){
 	<td><?php echo $row['space'];?></td>
 	<td><?php echo $time;?></td>
 	<td><?php echo $status;?></td>
-	<td><a href="edit.php?id=<?php echo $row['session_id'];?>">Edit</a></td>
-	<td><a href="delete.php?id=<?php echo $row['session_id'];?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
+	<td><a href="edit_session.php?id=<?php echo $row['session_id'];?>">Edit</a></td>
+	<td><a href="delete_session.php?id=<?php echo $row['session_id'];?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
+  <td><a href="finish_session.php?id=<?php echo $row['session_id'];?>">Finish</a></td>
 </tr>
   
 <?php

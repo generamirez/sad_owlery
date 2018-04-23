@@ -53,9 +53,9 @@ if(isset($_POST['save_btn'])){
 
 ?>
 
-
+  <title>Edit Sessions</title>
 <h1> Edit Session </h1>
-    <form method="post" action="edit.php?id=<?php echo $row['session_id'];?>">
+    <form method="post" action="edit_session.php?id=<?php echo $row['session_id'];?>">
 	<table>
 		<tr><td>Customer Name</td> <tr>
 		<tr><td> <input type="text" name="customer_name" class="textinput" value="<?php echo $row['customer_name']; ?>" required>

@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <body>
   <nav class="navbar1">
@@ -19,11 +18,6 @@
       </a>
     </span>
 
-    <div class="navbar-nav1" id="nav">
-      <div class="nav-elements"><h2> Sessions </h2> </div>
-      <div class="nav-elements"> <input type="text" name="search"></div>
-      <div class="nav-elements"> <a href="add_session.php"><h4> Add Session </a><h4> </div>
-    </div>
     
 
   </nav>
