@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['login_btn'])){
-    $_SESSION['logged_in']=false;
+
     // username and password sent from form
     $myusername=$_POST['username'];
     $mypassword=$_POST['password'];
