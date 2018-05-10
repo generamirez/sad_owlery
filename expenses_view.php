@@ -1,10 +1,8 @@
-<?php
-require 'functions.php';
-require_once 'connect.php';
-require 'header.php';
-require 'login_check.php';
 
-?>
+<?php require 'connect.php';
+
+require 'login_check.php'; ?>
+<title>Sessions</title>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -28,7 +26,7 @@ require 'login_check.php';
 
     <div class="navbar-nav1" id="nav">
       <div class="nav-elements"><h2> Expenses </h2> </div>
-      <div class="nav-elements"> <a href="add_session.php"><h4> Add Expense </a><h4> </div>
+      <div class="nav-elements"> <a href="add_session.php"><h4> Add Session </a><h4> </div>
     </div>
     
 
@@ -53,7 +51,7 @@ require 'login_check.php';
     <a href=''#' class='element'>Employees</a>
     <a href='#' class='element'>Equipment</a>
     <a href='#' class='element'>Products</a>
-    <a href='#' class='element'>Expenses</a>
+    <a href='expenses_view.php' class='element'>Expenses</a>
     <a href='#' class='element'>Reports</a>
     <a href='#' class='element'>Options</a>
     <a href='logout.php' class='element'>Logout</a>
@@ -64,7 +62,7 @@ require 'login_check.php';
     echo "
     <a href='sessions_view.php' class='element'>Sessions</a>
     <a href='#' class='element'>Orders</a>
-    <a href='#' class='element'>Expenses</a>
+    <a href='expenses_view.php' class='element'>Expenses</a>
     <a href='logout.php' class='element'>Log Out</a>
   
     ";
@@ -74,104 +72,83 @@ require 'login_check.php';
 ?>
     
   </div>
-<title>Expenses</title>
-<body>
-<div id="main">
-<div class="row container">
+<div id="main" class="container">
+
+
+<div class="expenses col-md-12">
+
 <?php
- $sql="SELECT * FROM expenses";
- $sql2= "SELECT * FROM expense_sources";
- $sql3= "SELECT * FROM expense_types";
+  $sql="select * from expenses";
+
+  $query= mysqli_query($dbcon, $sql);
 
 
 
+  echo "<table align='center' border='1'>
+  <tr>
+  <th>Date</th>
+  <th>Expense Type</th>
+  <th>Voucher No.</th>
+  <th>Total Amount</th>
+  <th>Controls</th>
+  </tr>";
 
-$exp_table = mysqli_query($dbcon, $sql);
-$src_table = mysqli_query($dbcon, $sql2);
-$typ_table = mysqli_query($dbcon, $sql3);
- 
 
-if($exp_table){
- 
-echo '<table align="left"
-cellspacing="5" cellpadding="8">
- 
-<tr>
-<td align="left"><b>Date</b></td>
-<td align="left"><b>Expense Type</b></td>
-<td align="left"><b>Voucher</b></td>
-<td align="left"><b>Amount</b></td>
-<td align="left"><b>Controls</b></td>
-</tr>';
-}
+  while ($row=mysqli_fetch_array($query)){
+    echo "<tr>";
+    $s = strtotime($row['expense_date']);
 
-while($row = mysqli_fetch_array($exp_table)){
+    $date = date('m/d/Y', $s);
+    $time = date('H:i:s A', $s);
+    echo "<td>". $date . "</td>";
+    $id = $row["exptype_id"];
+    $cmd="SELECT exptype_name FROM expense_types where exptype_id= '$id'";
+    $getType= mysqli_query($dbcon, $cmd);
+    $typeArr=mysqli_fetch_array($getType, MYSQLI_NUM);
+    echo "<td>". $typeArr[0] . "</td>";
+    echo "<td>". $row['voucher_code'] . "</td>";
+    
+    echo "<td>". $row['amount'] . "</td>";
 
-  $s = strtotime($row['expense_date']);
+    ?>
+    <td> <a href="edit_expense.php?id=<?php echo $row['expense_id'];?>"> Edit </a>
+    <a href="delete_expense.php?id=<?php echo $row['expense_id'];?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a> </td>
+  <?php }
+  echo "</table>"
+?>
 
-  $date = date('m/d/Y', $s);
-  $time = date('H:i:s A', $s);
-  $id = $row['expense_id'];
-  $amt= $row['amount'];
-  $voucher=$row['voucher_code'];
-  $expid=$row['exptype_id'];
-
-  $typeget=mysqli_query($dbcon, "SELECT exptype_name FROM expense_types where exptype_id='$expid'");
-
-  while($type = mysqli_fetch_array($typeget)){
-        $exptype=$type['exptype_name'];
-    }
-}
-  
- ?>
-<tr>
-	<td><?php echo $date;?></td>
-	<td><?php echo $exptype;?></td>
-	<td><?php echo $voucher;?></td>
-	<td><?php echo $amt;?></td>
-	<td><a href="edit_session.php?id=<?php echo $row['session_id'];?>">Edit</a></td>
-	<td><a href="delete_expense.php?id=<?php echo $id;?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
-</tr>
-  
-</table>
 </div>
-<table>
-<tr> <h3> Expense Types </h3> </tr>
+
+
+
+<div class="expense_types container">
+ <?php
+  $sql="select * from expense_types";
+
+  $query= mysqli_query($dbcon, $sql);
+
+
+  echo " <h1> Expense Types </h1>";
+  
+
+  while ($row=mysqli_fetch_array($query)){
+    
+    ?>
+  <table align='center' border='1' class='col-md-6'>
+  <tr>
+  <td><?php echo $row['exptype_name'] ?> </td>  
+  <td> <a> Edit </a> <a>Delete</a></td>
+  </tr>
+
+
 <?php
-    while($row1 = mysqli_fetch_array($typ_table)){
+  }
+?>
 
-        $id = $row1['exptype_id'];
-        $name = $row1['exptype_name'];
-        ?>
-      <tr>
-	<td><?php echo $name;?></td>
-	<td><a href="edit_session.php?id=<?php echo $row['session_id'];?>">Edit</a></td>
-	<td><a href="delete_expense.php?id=<?php echo $id;?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
-</tr>
-      <?php } ?>
-    
-</table>
+</div>
 
 
-<table>
-    <tr> <h3> Expense Sources </h3> </tr>
-    <?php
-    while($row2 = mysqli_fetch_array($src_table)){
-
-        $id = $row2['exptype_id'];
-        $name = $row2['src_name'];
-        ?>
-      <tr>
-	<td><?php echo $name;?></td>
-	<td><a href="edit_session.php?id=<?php echo $row['session_id'];?>">Edit</a></td>
-	<td><a href="delete_expense.php?id=<?php echo $id;?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
-</tr>
-      <?php } ?>
-    
-
-
-</table>
-
+</div>
 </body>
-</div>
+
 </html>

@@ -1,4 +1,6 @@
 <?php
+
+require 'connect.php';
 if (isset($_POST['login_btn'])){
 
     // username and password sent from form
@@ -61,6 +63,31 @@ header("location:sessions_view.php");
 }
 
 }
+
+
+
+
+    if (isset($_POST['add_exp'])){
+
+        $type= $_POST['type'];
+        $amount= $_POST['amount'];
+        $voucher= $_POST['voucher'];
+        $source= $_POST['source'];
+       
+        $sql="INSERT INTO expenses(exptype_id, amount, voucher_code, source_id) 
+        VALUES( '$type', '$amount', '$voucher', '$source')";
+        
+        
+        $result = mysqli_query($dbcon,$sql);
+        if (!$result) {
+          printf("Error: %s\n", mysqli_error($dbcon));
+          exit();
+        }
+        else{
+        header("location:sessions_view.php");
+        }
+        
+        }
 
 
 

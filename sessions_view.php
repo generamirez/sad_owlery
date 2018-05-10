@@ -1,6 +1,6 @@
 
 <?php require 'connect.php';
-require 'scripts.php';
+
 require 'login_check.php'; ?>
 <title>Sessions</title>
 <html lang="en">
@@ -52,7 +52,7 @@ require 'login_check.php'; ?>
     <a href=''#' class='element'>Employees</a>
     <a href='#' class='element'>Equipment</a>
     <a href='#' class='element'>Products</a>
-    <a href='#' class='element'>Expenses</a>
+    <a href='expenses_view.php' class='element'>Expenses</a>
     <a href='#' class='element'>Reports</a>
     <a href='#' class='element'>Options</a>
     <a href='logout.php' class='element'>Logout</a>
@@ -63,7 +63,7 @@ require 'login_check.php'; ?>
     echo "
     <a href='sessions_view.php' class='element'>Sessions</a>
     <a href='#' class='element'>Orders</a>
-    <a href='#' class='element'>Expenses</a>
+    <a href='expenses_view.php' class='element'>Expenses</a>
     <a href='logout.php' class='element'>Log Out</a>
   
     ";
@@ -130,7 +130,7 @@ require 'login_check.php'; ?>
 <?php
 
 
- $sql="SELECT * FROM sessions";
+ $sql="SELECT * FROM sessions order by session_status desc and customer_name asc";
 
 $result = mysqli_query($dbcon,$sql);
 
@@ -237,18 +237,5 @@ echo "</table>";
 ?> -->
   </div>
 
-  <script>
-    function openSlideMenu(){
-      document.getElementById('side-menu').style.width = '20%';
-      document.getElementById('main').style.marginLeft = '20%';
-      document.getElementById('nav').style.marginLeft = '22%';
-    }
-
-    function closeSlideMenu(){
-      document.getElementById('side-menu').style.width = '0';
-      document.getElementById('main').style.marginLeft = '0';
-      document.getElementById('nav').style.marginLeft = '0';
-    }
-  </script>
 </body>
 </html>

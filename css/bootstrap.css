@@ -100,7 +100,7 @@ body {
 
 .side-nav1{
   height:100%;
-  width:0;
+  width:20%;
   position:fixed;
   z-index:1;
   top:0;
@@ -173,10 +173,12 @@ body {
   padding:20px;
   overflow:hidden;
   width:100%;
+  margin-left:20%;
 }
 
 #nav{
   transition:0.5s;
+  margin-left:20%;
 }
 
 .block{

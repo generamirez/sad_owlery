@@ -1,6 +1,6 @@
 <?php require 'connect.php'?>
 <?php require 'functions.php'?>
-<?php require 'scripts.php'?>
+
 <title>Sessions</title>
 <html lang="en">
 <head>
@@ -115,7 +115,7 @@
 
   <tr>
    
-   <td>  Discout Amount <input type="number" name="disc" min='0' >
+   <td>  Discout Amount <input type="number" name="disc" min='0' max='100' >
 
    </td>
  </tr>

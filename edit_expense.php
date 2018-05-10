@@ -5,40 +5,39 @@ require 'scripts.php';
 require_once 'connect.php';
 
 $id = $_GET['id'];
+
 $command= "SELECT *
-FROM `sessions`
-WHERE `session_id` =" .$id;
+FROM `expenses`
+WHERE `expense_id` = $id";
 
-$sql = mysqli_query($dbcon, $command);
-$row = mysqli_fetch_array($sql, MYSQLI_ASSOC);
-if(isset($_POST['save_btn'])){
 
-    $name= $_POST['customer_name'];
-    $space= $_POST['space'];
-    $num= $_POST['custom_num'];
-    $package= $_POST['package'];
-    $voucher = $_POST['voucher'];
-    $disc = $_POST["disc"];
-    $partner= $_POST["partner"];
-    $new= $_POST["new"];
+$sql= mysqli_query($dbcon, $command);
+$row= mysqli_fetch_array($sql);
+$src_id= $row['source_id'];
+$exp_type= $row['exptype_id'];
 
-    if ($new==true){
-        $new=1;
-    }
-    else{
-        $new=0;
-    }
+$getSQuery="SELECT src_name from expense_sources where src_id=$src_id";
+$sql1= mysqli_query($dbcon, $getSQuery);
+$source= mysqli_fetch_array($sql1);
 
-    if ($partner==true){
-        $partner=1;
-    }
-    else{
-        $partner=0;
-    }
+$src=$source['src_name'];
+
+
+
+$getTQuery="SELECT exptype_name from expense_types where exptype_id=$exp_type";
+$sql2= mysqli_query($dbcon, $getTQuery);
+$typeArray= mysqli_fetch_array($sql2);
+$type= $typeArray['exptype_name'];
+
+if (isset($_POST['save_exp'])){
+
+    $type= $_POST['type'];
+    $amount= $_POST['amount'];
+    $voucher= $_POST['voucher'];
+    $source= $_POST['source'];
+
     
-    $sql="UPDATE sessions SET customer_name='$name', space='$space', number_of_people='$num', package_type='$package',voucher_code='$voucher',
-     discount_amt='$disc', new_package='$new', partnership='$partner' where session_id ='$id'
-    ";
+    $sql="UPDATE expenses SET exptype_id=$type, amount=$amount, voucher_code=$voucher, source_id=$source where expense_id=$id";
     
     
     $result = mysqli_query($dbcon,$sql);
@@ -47,12 +46,16 @@ if(isset($_POST['save_btn'])){
       exit();
     }
     else{
-    header("location:sessions_view.php");
+    header("location:expenses_view.php");
+    }
+    
     }
 
-}
+
 
 ?>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -75,7 +78,7 @@ if(isset($_POST['save_btn'])){
     </span>
 
     <div class="navbar-nav1" id="nav">
-      <div class="nav-elements"><h2> Edit Session </h2> </div>
+      <div class="nav-elements"><h2> Edit Expense </h2> </div>
     </div>
     
 
@@ -121,59 +124,78 @@ if(isset($_POST['save_btn'])){
 ?>
     
   </div>
-<div id="main">
-<div class="container">
-  <title>Edit Sessions</title>
-    <form method="post" action="edit_session.php?id=<?php echo $row['session_id'];?>">
-	<div class="row">
-             <h5 class="col-md-6"> Expense Type </h5>
-             <h5 class="col-md-6"> Amount </h5>
-    </div>
+<div id="main" class="container">
+    <form method="post" action="edit_expense.php?id=<?php echo $row['expense_id'];?>">
+        <div class="row">
+            <div class="col-md-6">
+            Expense Type
+            </div>
 
+            <div class="col-md-6">
+            Amount
+            </div>
 
-    <div class="row">
-            <select class="col-md-5" required>
-            <?php 
-                $command= "SELECT * from expense_types";
-                $result = mysqli_query($dbcon, $command);
-                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    $id=$row['exptype_id'];
-                    $name=$row['exptype_name'];
+        </div>
 
-            ?>
-                <option value ="<?php echo $name; ?>"> <?php echo $name; ?> </option>
-                <?php } ?>
+        <div class="row">
+            <div class="col-md-6">
+                <select name="type" required>
+                    <?php
+                        $com="SELECT * from expense_types";
+                        $get= mysqli_query($dbcon, $com);
+                        while($exptypes= mysqli_fetch_array($get, MYSQLI_NUM)){
+                    ?>
+                            <option value="<?php echo $exptypes[0]?>" <?php if ($exptypes[0]==$exp_type){ echo "selected=selected";} ?> > <?php echo $exptypes[1] ?> </option>
+
+                    <?php
+                        }
+
+                    ?>
+
                 </select>
-            <div class="col-md-1"> </div>
-            <input type="number" class="col-md-4" required> </input>
-    </div>
+            </div>
 
-    <div class="row">
-            <h5 class="col-md-6"> Source </h5>
-            <h5 class="col-md-6"> Cash Voucher </h5>
-    </div>
+            <div class="col-md-6">
+            <input name="amount" type="number" value=<?php echo $row['amount']; ?>>
+            </div>
 
+        </div>
 
-    <div class="row">
-            <select class="col-md-5" required>
-            <?php 
-                $command= "SELECT * from expense_sources";
-                $result = mysqli_query($dbcon, $command);
-                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    $id=$row['exptype_id'];
-                    $name=$row['src_name'];
+        <div class="row">
+            <div class="col-md-6">
+            Source
+            </div>
 
-            ?>
-                <option value ="<?php echo $name; ?>"> <?php echo $name; ?> </option>
-                <?php } ?>
+            <div class="col-md-6">
+            Cash Voucher
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <select name="source" required>
+                    <?php
+                        $com="SELECT * from expense_sources";
+                        $get= mysqli_query($dbcon, $com);
+                        while($expsources= mysqli_fetch_array($get, MYSQLI_NUM)){
+                    ?>
+                            <option value="<?php echo $expsources[0]?>" <?php if ($expsources[0]==$src_id){ echo "selected=selected";} ?> > <?php echo $expsources[1] ?> </option>
+
+                    <?php
+                        }
+
+                    ?>
+
                 </select>
-            <div class="col-md-1"> </div>
-            <input type="number" class="col-md-4" required> </input>
-    </div>
-</div>
-</form>
+            </div>
 
-</div>
+            <div class="col-md-6">
+            <input name="voucher" type="textbox" value=<?php echo $row['voucher_code']; ?>>
+            </div>
+            <input type="submit" name="save_exp" value="Confirm" onClick="return confirm('This will overwrite the selected entry. Continue?');">
+        </div>
+    </form>
 </div>
  </body>
 </html>

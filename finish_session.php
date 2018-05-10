@@ -1,4 +1,4 @@
-<?php require 'connect.php'?>
+<?php require_once 'connect.php'?>
 <?php require 'login_check.php' ?>
 <?php require 'functions.php'?>
 <?php require 'sidebar.php'?>
@@ -22,11 +22,13 @@ while($row = mysqli_fetch_array($sql, MYSQLI_ASSOC)){
     $s = strtotime($row['date_start']);
 
   $date = date('m/d/Y', $s);
-  $time = date('h:i A', $s);
+  $time = date('H:i A', $s);
 
 
   $date2 = date('m/d/Y');
-  $time2 = date('h:i A');
+  $time2 = date('H:i A');
+
+  $diff= $time2-$time;
     if ($new==true){
         $new=1;
     }
