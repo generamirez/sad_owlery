@@ -77,10 +77,10 @@
 		<tr><td> <input type="text" name="customer_name" class="textinput" required>
 		</tr>
 		<tr><td>Space</td> 
-		<td> <select name="space"required>
-                <option value="Shared Space"> Shared Space </option>
-                <option value="Meeting Room A"> Meeting Room A </option>
-                <option value="Meeting Room B"> Meeting Room B </option>
+    <td> <select name="space" class="space" id="space" required> 
+                <option value="Shared Space" id="optA"> Shared Space </option>
+                <option value="Meeting Room A" id="optB"> Meeting Room A </option>
+                <option value="Meeting Room B"id="optB"> Meeting Room B </option>
             </select>
 		</tr>
     <tr>
@@ -92,7 +92,8 @@
 
     <tr>
    
-   <td>   Package Type <select name="package"required>
+   <td>   Package Type <select name="package" id="package" disabled>
+        <option value="None"> None </option>
         <option value="Weekly"> Weekly </option>
         <option value="Monthly"> Monthly </option>
         <option value="Daily"> Daily </option>
@@ -101,14 +102,14 @@
  </tr>
  <tr>
    
-   <td>   <input type="checkbox" name="new">New
+   <td>   <input type="checkbox" name="new" class="new" id="new">New
         
    </td>
  </tr>
 
   <tr>
    
-   <td>   Cash voucher <input type="text" name="voucher" min='1' required>
+   <td>   Cash voucher <input type="text" name="voucher" min='1' id="voucher" required>
 
    </td>
  </tr>
@@ -134,5 +135,31 @@
 
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $(function (){
+    $("#new").change(function (){
+      var checked = this.checked;
+        if(checked){
+          $("#package").prop("disabled", false);
+          $("#voucher").prop("disabled", false);
+        }
+        else{
+          $("#package").prop("disabled", true);
+          $("#voucher").val("0");
+          $("#voucher").prop("disabled", true);
+          
+
+        }
+    });
+
+  });
+
+    
+
+</script>
+
 </body>
 </html>

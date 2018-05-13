@@ -1,7 +1,7 @@
 
-<?php require 'connect.php';
-
-require 'login_check.php'; ?>
+ <?php 
+ require 'connect.php';
+ require 'functions.php';?> 
 <title>Sessions</title>
 <html lang="en">
 <head>
@@ -130,7 +130,7 @@ require 'login_check.php'; ?>
 <?php
 
 
- $sql="SELECT * FROM sessions order by session_status desc and customer_name asc";
+ $sql="SELECT * FROM sessions order by session_status desc";
 
 $result = mysqli_query($dbcon,$sql);
 
@@ -196,7 +196,7 @@ else{
 	<td><?php echo $row['space'];?></td>
 	<td><?php echo $time;?></td>
 	<td><?php echo $status;?></td>
-	<td><a href="edit_session.php?id=<?php echo $row['session_id'];?>">Edit</a></td>
+	<td><a href="view_receipt.php?id=<?php echo $row['session_id'];?>">View</a></td>
 	<td><a href="delete_session.php?id=<?php echo $row['session_id'];?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
 
 </tr>
@@ -217,24 +217,10 @@ echo mysqli_error($dbcon);
  
 }
  
-// Close connection to the database
-mysqli_close($dbcon);
+
  
 ?>
-<!-- while($row = mysqli_fetch_array($result))
-{
-echo "<tr>";
-echo "<td>" . $row['name'] . "</td>";
-echo "<td>" . $row['height'] . "</td>";
-echo "<td>" . $row['country'] . "</td>";
-echo "<td>" . $row['year'] . "</td>";
-echo "<td>" . $row['type'] . "</td>";
-echo "<td>" . $row['use'] . "</td>";
-echo "<td>" . $row['remarks'] . "</td>";
-echo "</tr>";
-}
-echo "</table>";
-?> -->
+
   </div>
 
 </body>

@@ -1,7 +1,5 @@
 
-<?php require 'connect.php';
-
-require 'login_check.php'; ?>
+<?php require 'connect.php'; ?>
 <title>Sessions</title>
 <html lang="en">
 <head>
@@ -14,16 +12,7 @@ require 'login_check.php'; ?>
 </head>
 <body>
   <nav class="navbar1">
-    <span class="open-slide">
-      <a href="#" onclick="openSlideMenu()">
-        <svg width="30" height="30">
-            <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
-            <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
-            <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
-        </svg>
-      </a>
-    </span>
-
+   
     <div class="navbar-nav1" id="nav">
       <div class="nav-elements"><h2> Expenses </h2> </div>
       <div class="nav-elements"> <a href="add_session.php"><h4> Add Session </a><h4> </div>
@@ -33,7 +22,6 @@ require 'login_check.php'; ?>
   </nav>
 
   <div id="side-menu" class="side-nav1">
-    <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
     <a  href="login_admin2.php"><img src="imgs/logo.png" class="logo" href="login_admin2.php"></a>
 
     <h2 align="center">
