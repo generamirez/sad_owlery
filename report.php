@@ -35,14 +35,15 @@ $date1 =  date( "M d, Y",strtotime($start) );
 $date2 =  date( "M d, Y",strtotime($end) );
 echo "$type Report <br>";
 echo "$date1 - $date2";
-if ($type == "Revenue"){
-    $type1 = "sessions";
-}
+
 if ($end < $start){
     echo "Error";
 }
 else{
-    echo "  <table>
+    
+
+        if ($type == "Revenue"){
+            echo "  <table>
     <tr> 
         <th>Date </th>
         <th>Day </th>
@@ -50,10 +51,10 @@ else{
         <th>Total People </th>
         <th>Amount</th>
         </tr>";
-    $sql = "select DATE_FORMAT(date_end, '%m/%d/%Y'),DATE_FORMAT(date_end, '%W'), COUNT(session_id), SUM(number_of_people), SUM(amt_due) from sessions where date_end between '$start' and '$end' group by DATE_FORMAT(date_end, '%m/%d/%Y') AND session_status=0";
-    $query = mysqli_query($dbcon, $sql);
-    if ($type1 == "sessions"){
-    while ($row=mysqli_fetch_array($query, MYSQLI_NUM)){
+            $sql = "select DATE_FORMAT(date_end, '%m/%d/%Y'),DATE_FORMAT(date_end, '%W'), COUNT(session_id), SUM(number_of_people), SUM(amt_due) from sessions where date_end between '$start' and '$end' group by DATE_FORMAT(date_end, '%m/%d/%Y') AND session_status=0";
+        $query = mysqli_query($dbcon, $sql);
+        
+        while ($row=mysqli_fetch_array($query, MYSQLI_NUM)){
 
         ?>
          
@@ -70,9 +71,75 @@ else{
     <?php
     }
     echo "    </table>";
+    
+        }
+
+    if ($type == "Expenses"){
+        echo "  <table>
+    <tr> 
+        <th>Date </th>
+        <th>Expense Type </th>
+        <th>Source</th>
+        <th>Voucher</th>
+        <th>Amount</th>
+        </tr>";
+        $sql = "select DATE_FORMAT(expense_date, '%m/%d/%Y'), exptype_id, source_id, voucher_code, amount from expenses";
+        
+        $query = mysqli_query($dbcon, $sql);
+        while ($row = mysqli_fetch_array($query, MYSQLI_NUM)){
+  
+            $query2 = "SELECT  src_id,src_name from expense_sources where src_id = $row[2] ";
+                $getNames = mysqli_query($dbcon, $query2);
+                while ($names = mysqli_fetch_array($getNames, MYSQLI_NUM)){
+                    if ($names[0]==$row[2]){
+                        $src_name= $names[1];
+                        
+                    }
+                }
+            
+                $query3 = "SELECT  * from expense_types where exptype_id = $row[1] ";
+                $getNames = mysqli_query($dbcon, $query3);
+                while ($names = mysqli_fetch_array($getNames, MYSQLI_NUM)){
+                    if ($names[0]==$row[1]){
+                        $type_name= $names[1];
+                    }
+                }
+               
+
+        ?>
+                <tr>
+            <td> <?php echo $row[0]; ?> </td>
+            <td> <?php echo $type_name; ?> </td>
+            <td> <?php echo $src_name; ?> </td>
+            <td> <?php echo $row[3]; ?> </td>
+            <td> <?php echo $row[4]; ?> </td>
+        </tr>
+       
+
+        <?php
+
+        }
+        echo '</table>';
+        ?>
+         <div class="row">
+    <h2> Total Expense </h2>
+    <h1> <?php 
+        $command = "SELECT SUM(amount) from expenses";
+        $sql =  mysqli_query($dbcon, $command);
+        $amt = mysqli_fetch_array($sql, MYSQLI_NUM);
+        echo $amt[0];
+    
+    ?> </h1>
+    </div>
+        
+    <?php
+     
     }
+    
 }
 ?>
+
 </div>
+
 </body>
 </html>

@@ -14,15 +14,7 @@
 </head>
 <body>
   <nav class="navbar1">
-    <span class="open-slide">
-      <a href="#" onclick="openSlideMenu()">
-        <svg width="30" height="30">
-            <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
-            <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
-            <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
-        </svg>
-      </a>
-    </span>
+ 
 
     <div class="navbar-nav1" id="nav">
       <div class="nav-elements"><h2> Sessions </h2> </div>
@@ -33,46 +25,7 @@
 
   </nav>
 
-  <div id="side-menu" class="side-nav1">
-    <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
-    <a  href="login_admin2.php"><img src="imgs/logo.png" class="logo" href="login_admin2.php"></a>
-
-    <h2 align="center">
-
-    <?php echo strtoupper($_SESSION['user']); ?>
-
-</h2>
-<h2 align="center">
-
-</h2>
-
-<?php 
-  if (strtoupper($_SESSION['level'])=='ADMIN'){
-    echo"
-    <a href=''#' class='element'>Employees</a>
-    <a href='#' class='element'>Equipment</a>
-    <a href='#' class='element'>Products</a>
-    <a href='expenses_view.php' class='element'>Expenses</a>
-    <a href='#' class='element'>Reports</a>
-    <a href='#' class='element'>Options</a>
-    <a href='logout.php' class='element'>Logout</a>
-    ";
-  }
-  else
-  {
-    echo "
-    <a href='sessions_view.php' class='element'>Sessions</a>
-    <a href='#' class='element'>Orders</a>
-    <a href='expenses_view.php' class='element'>Expenses</a>
-    <a href='logout.php' class='element'>Log Out</a>
-  
-    ";
-    }
-
-
-?>
-    
-  </div>
+ <?php require 'sidebar.php'; ?>
 <div id="main">
     <div>
     <div class="container row">

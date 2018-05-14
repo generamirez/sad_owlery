@@ -20,8 +20,8 @@
     <a href=''#' class='element'>Employees</a>
     <a href='#' class='element'>Equipment</a>
     <a href='#' class='element'>Products</a>
-    <a href='#' class='element'>Expenses</a>
-    <a href='#' class='element'>Reports</a>
+    <a href='expenses_view.php' class='element'>Expenses</a>
+    <a href='generate_report.php' class='element'>Reports</a>
     <a href='#' class='element'>Options</a>
     <a href='logout.php' class='element'>Logout</a>
     ";
