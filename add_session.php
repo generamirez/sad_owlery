@@ -1,5 +1,6 @@
 <?php require 'connect.php'?>
 <?php require 'functions.php'?>
+<?php require 'sidebar.php'?>
 
 <title>Sessions</title>
 <html lang="en">
@@ -12,16 +13,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <body>
-  <nav class="navbar1">
-    <span class="open-slide">
-      <a href="#" onclick="openSlideMenu()">
-        <svg width="30" height="30">
-            <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
-            <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
-            <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
-        </svg>
-      </a>
-    </span>
+  
 
     <div class="navbar-nav1" id="nav">
       <div class="nav-elements"><h2> Add Session </h2> </div>
@@ -30,46 +22,7 @@
 
   </nav>
 
-  <div id="side-menu" class="side-nav1">
-    <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
-    <a  href="login_admin2.php"><img src="imgs/logo.png" class="logo" href="login_admin2.php"></a>
-
-    <h2 align="center">
-
-    <?php echo strtoupper($_SESSION['user']); ?>
-
-</h2>
-<h2 align="center">
-
-</h2>
-
-<?php 
-  if (strtoupper($_SESSION['level'])=='ADMIN'){
-    echo"
-    <a href=''#' class='element'>Employees</a>
-    <a href='#' class='element'>Equipment</a>
-    <a href='#' class='element'>Products</a>
-    <a href='#' class='element'>Expenses</a>
-    <a href='#' class='element'>Reports</a>
-    <a href='#' class='element'>Options</a>
-    <a href='logout.php' class='element'>Logout</a>
-    ";
-  }
-  else
-  {
-    echo "
-    <a href='sessions_view.php' class='element'>Sessions</a>
-    <a href='#' class='element'>Orders</a>
-    <a href='#' class='element'>Expenses</a>
-    <a href='logout.php' class='element'>Log Out</a>
-  
-    ";
-    }
-
-
-?>
-    
-  </div>
+ 
  <div id="main">
     <form method="post" action="add_session.php">
 	<table>
@@ -80,7 +33,7 @@
     <td> <select name="space" class="space" id="space" required> 
                 <option value="Shared Space" id="optA"> Shared Space </option>
                 <option value="Meeting Room A" id="optB"> Meeting Room A </option>
-                <option value="Meeting Room B"id="optB"> Meeting Room B </option>
+                <option value="Meeting Room B"id="optC"> Meeting Room B </option>
             </select>
 		</tr>
     <tr>
@@ -94,9 +47,9 @@
    
    <td>   Package Type <select name="package" id="package" disabled>
         <option value="None"> None </option>
-        <option value="Weekly"> Weekly </option>
-        <option value="Monthly"> Monthly </option>
-        <option value="Daily"> Daily </option>
+        <option value="Weekly" id="packA"> Weekly </option>
+        <option value="Monthly" id="packB"> Monthly </option>
+        <option value="Daily" id="packC"> Daily </option>
         </select>
    </td>
  </tr>
@@ -150,6 +103,32 @@
           $("#package").prop("disabled", true);
           $("#voucher").val("0");
           $("#voucher").prop("disabled", true);
+          
+
+        }
+    });
+
+  });
+
+    
+
+</script>
+
+<script type="text/javascript">
+  $(function (){
+    $("#space").change(function (){
+      var space = this.value;
+        if(space == "Meeting Room A" || space == "Meeting Room B"){
+          $("#packA").prop("disabled", true);
+          $("#packB").prop("disabled", true);
+          $("#packC").prop("disabled", true);
+          $("#package").val("None").change(); 
+        }
+        else{
+          $("#packA").prop("disabled", false);
+          $("#packB").prop("disabled", false);
+          $("#packC").prop("disabled", false);
+         
           
 
         }

@@ -14,14 +14,14 @@ $sql = mysqli_query($dbcon, $command);
 $row = mysqli_fetch_array($sql, MYSQLI_ASSOC);
 if(isset($_POST['save_btn'])){
 
-    $name= $_POST['customer_name'];
-    $space= $_POST['space'];
-    $num= $_POST['custom_num'];
-    $package= $_POST['package'];
-    $voucher = $_POST['voucher'];
-    $disc = $_POST["disc"];
-    $partner= $_POST["partner"];
-    $new= $_POST["new"];
+    $name= mysqli_real_escape_string($_POST['customer_name']);
+    $space= mysqli_real_escape_string($_POST['space']);
+    $num= mysqli_real_escape_string($_POST['custom_num']);
+    $package= mysqli_real_escape_string($_POST['package']);
+    $voucher = mysqli_real_escape_string($_POST['voucher']);
+    $disc = mysqli_real_escape_string($_POST["disc"]);
+    $partner= mysqli_real_escape_string($_POST["partner"]);
+    $new= mysqli_real_escape_string($_POST["new"]);
 
     if ($new==true){
         $new=1;

@@ -17,9 +17,9 @@
 <?php 
   if (strtoupper($_SESSION['level'])=='ADMIN'){
     echo"
-    <a href=''#' class='element'>Employees</a>
+    <a href=''employees_view.php' class='element'>Employees</a>
     <a href='#' class='element'>Equipment</a>
-    <a href='#' class='element'>Products</a>
+    <a href='products_view.php' class='element'>Products</a>
     <a href='expenses_view.php' class='element'>Expenses</a>
     <a href='generate_report.php' class='element'>Reports</a>
     <a href='#' class='element'>Options</a>
@@ -30,8 +30,8 @@
   {
     echo "
     <a href='sessions_view.php' class='element'>Sessions</a>
-    <a href='#' class='element'>Orders</a>
-    <a href='#' class='element'>Expenses</a>
+    <a href='orders_view.php' class='element'>Orders</a>
+    <a href='expenses_view.php' class='element'>Expenses</a>
     <a href='logout.php' class='element'>Log Out</a>
   
     ";

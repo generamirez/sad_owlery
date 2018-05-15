@@ -1,6 +1,6 @@
 
 <?php require 'connect.php'; ?>
-<title>Sessions</title>
+<title>Expenses</title>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -15,7 +15,7 @@
    
     <div class="navbar-nav1" id="nav">
       <div class="nav-elements"><h2> Expenses </h2> </div>
-      <div class="nav-elements"> <a href="add_session.php"><h4> Add Session </a><h4> </div>
+      <div class="nav-elements"> <a href="add_expense.php"><h4> Add Expense </a><h4> </div>
     </div>
     
 

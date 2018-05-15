@@ -104,9 +104,20 @@ header("location:sessions_view.php");
     if (isset($_POST['add_exp'])){
 
         $type= mysqli_real_escape_string($dbcon,$_POST['type']);
+
+            $sql = "SELECT exptype_id from expense_types where exptype_name = $type";
+            $query = mysqli_query($dbcon, $sql);
+            while ($row = mysqli_fetch_array($query, MYSQLI_NUM)){
+                $type = $row[0];
+            }
         $amount= mysqli_real_escape_string($dbcon,$_POST['amount']);
         $voucher= mysqli_real_escape_string($dbcon,$_POST['voucher']);
         $source= mysqli_real_escape_string($dbcon,$_POST['source']);
+        $sql = "SELECT src_id from expense_sources where src_name = $source";
+            $query = mysqli_query($dbcon, $sql);
+            while ($row = mysqli_fetch_array($query, MYSQLI_NUM)){
+                $type = $row[0];
+            }
        
         $sql="INSERT INTO expenses(exptype_id, amount, voucher_code, source_id) 
         VALUES( '$type', '$amount', '$voucher', '$source')";
@@ -118,7 +129,7 @@ header("location:sessions_view.php");
           exit();
         }
         else{
-        header("location:sessions_view.php");
+        header("location:expenses_view.php");
         }
         
         }
