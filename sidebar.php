@@ -7,7 +7,6 @@
 
     <h2 align="center">
 
-    <?php echo strtoupper($_SESSION['user']); ?>
 
 </h2>
 <h2 align="center">

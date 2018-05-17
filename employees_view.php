@@ -21,9 +21,8 @@ require 'scripts.php'; ?>
 
   </nav>
 
- 
+ <?php require 'sidebar.php' ?>
 <div id="main">
-  <?php require 'sidebar.php'; ?>
     <div>
     <div class="container row">
       <div class="block col-md-3">
@@ -101,8 +100,8 @@ while($row = mysqli_fetch_array($response)){
 	<td><?php echo $row['position'];?></td>
 	<td><?php echo $row['contract_start'];?></td>
 	<td><?php echo $row['employee_id'];?></td>
-	<td><a href="edit_employee.php?id=<?php echo $row['session_id'];?>">Edit</a></td>
-	<td><a href="delete_employee.php?id=<?php echo $row['session_id'];?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
+	<td><a href="edit_employee.php?id=<?php echo $row['esource_id'];?>">Edit</a></td>
+	<td><a href="delete_employee.php?id=<?php echo $row['esource_id'];?>" onClick="return confirm('Are you sure you want to delete?');">Delete</a></td>
 </tr>
   
 <?php
